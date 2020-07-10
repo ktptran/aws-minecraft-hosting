@@ -36,18 +36,12 @@ data = sg.authorize_ingress(
 print('Ingress successfully set %s' % data)
 
 # 2. Find an associated key pair to SSH into the instance
-key_name = 'python_automation_key'
-key_path = key_name + '.pem'
-key = ec2.create_key_pair(KeyName=key_name)
-key.key_material
-with open(key_path, 'w') as key_file:
-    key_file.write(key.key_material)
-os.chmod(key_path, stat.S_IRUSR | stat.S_IWUSR)
 
 
 
-# key_pair = ec2.KeyPair('python_automation_key')
-# key_name = key_pair.key_name
+
+key_pair = ec2.KeyPair('python_automation_key')
+key_name = key_pair.key_name
 # TODO: Figure out how to SSH into the instances - key pair does not work right now but is setup to
 
 
@@ -58,7 +52,7 @@ instance = ec2.create_instances(
     ImageId='ami-0b1e2eeb33ce3d66f',
     MinCount=1,
     MaxCount=1,
-    InstanceType='t2.micro',
+    InstanceType='t2.small',
     KeyName=key_name,
     SecurityGroupIds = [security_group_id]
 )
