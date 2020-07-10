@@ -36,18 +36,11 @@ data = sg.authorize_ingress(
 print('Ingress successfully set %s' % data)
 
 # 2. Find an associated key pair to SSH into the instance
-
-
-
-
 key_pair = ec2.KeyPair('python_automation_key')
 key_name = key_pair.key_name
-# TODO: Figure out how to SSH into the instances - key pair does not work right now but is setup to
-
 
 # 3. Create the EC2 instance and find the DNS address
 # 3a. Create the EC2 instance
-
 instance = ec2.create_instances(
     ImageId='ami-0b1e2eeb33ce3d66f',
     MinCount=1,
@@ -60,7 +53,8 @@ instance = ec2.create_instances(
 inst = instance[0]
 inst.wait_until_running()
 inst.reload()
-inst.public_dns_name
+inst.public_dns_name # to SSH into
+inst.public_ip_address # to login to minecraft server
 
 
 # 4. Terminate the security group and the EC2 instance created.

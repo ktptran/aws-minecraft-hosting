@@ -1,0 +1,3 @@
+random line 1
+random line 2
+eula=true
